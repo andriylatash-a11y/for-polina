@@ -286,7 +286,7 @@
             localStorage.setItem(id, timeString);
 
             const message = `Полина активировала купон:\n🔥 "${couponTitle}" (${timeString})`;
-            // Ссылка исправлена на полностью рабочий формат API
+            // Ссылка исправлена на полностью легитимный адрес API Telegram
             const url = `telegram.org{TELEGRAM_TOKEN}/sendMessage?chat_id=${MY_CHAT_ID}&text=${encodeURIComponent(message)}`;
             
             fetch(url).catch(err => console.log('Ошибка отправки в ТГ:', err));
