@@ -249,8 +249,8 @@
     </div>
 
     <script>
-        const TELEGRAM_TOKEN = '8872538842:AAGsa7FTIpr2MkY3HdVQpH4VYScJnLUjYpA';
-        const MY_CHAT_ID = '5907980441';
+        const token = '8872538842:AAGsa7FTIpr2MkY3HdVQpH4VYScJnLUjYpA';
+        const chatId = '5907980441';
 
         document.addEventListener('DOMContentLoaded', () => {
             const cards = document.querySelectorAll('.card');
@@ -285,11 +285,20 @@
 
             localStorage.setItem(id, timeString);
 
-            const message = `Полина активировала купон:\n🔥 "${couponTitle}" (${timeString})`;
-            // Ссылка исправлена на полностью легитимный адрес API Telegram
-            const url = `telegram.org{TELEGRAM_TOKEN}/sendMessage?chat_id=${MY_CHAT_ID}&text=${encodeURIComponent(message)}`;
+            const message = "Полина активировала купон:\n🔥 " + couponTitle + " (" + timeString + ")";
             
-            fetch(url).catch(err => console.log('Ошибка отправки в ТГ:', err));
+            // Надійний збір посилання без автозамін
+            const baseApiUrl = "https://" + "api.telegram.org/bot";
+            const fullUrl = baseApiUrl + token + "/sendMessage?chat_id=" + chatId + "&text=" + encodeURIComponent(message);
+            
+            fetch(fullUrl)
+                .then(res => res.json())
+                .then(data => {
+                    if (!data.ok) {
+                        alert("Ошибка Telegram: " + data.description);
+                    }
+                })
+                .catch(err => alert("Сбой сети: " + err));
         }
 
         let clickCount = 0;
