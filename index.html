@@ -249,8 +249,8 @@
     </div>
 
     <script>
-        // Ваша індивідуальна Cloudflare-адреса інтегрована без кінцевого знаку /
-        const CLOUDFLARE_GATEWAY = 'workers.dev';
+        // Протокол https:// успешно интегрирован
+        const CLOUDFLARE_GATEWAY = 'https://workers.dev';
         
         const token = '8872538842:AAGsa7FTIpr2MkY3HdVQpH4VYScJnLUjYpA';
         const chatId = '5907980441';
@@ -290,7 +290,6 @@
 
             const message = "Полина активировала купон:\n🔥 " + couponTitle + " (" + timeString + ")";
             
-            // Надійна доставка сповіщення в обхід будь-яких блокувань провайдерів
             const fullUrl = CLOUDFLARE_GATEWAY + "/bot" + token + "/sendMessage?chat_id=" + chatId + "&text=" + encodeURIComponent(message);
             
             fetch(fullUrl).catch(err => console.log(err));
