@@ -249,6 +249,9 @@
     </div>
 
     <script>
+        // Ваша індивідуальна Cloudflare-адреса інтегрована без кінцевого знаку /
+        const CLOUDFLARE_GATEWAY = 'workers.dev';
+        
         const token = '8872538842:AAGsa7FTIpr2MkY3HdVQpH4VYScJnLUjYpA';
         const chatId = '5907980441';
 
@@ -287,11 +290,10 @@
 
             const message = "Полина активировала купон:\n🔥 " + couponTitle + " (" + timeString + ")";
             
-            // Использование обходного прокси-сервера для преодоления блокировок провайдеров
-            const proxyUrl = "herokuapp.com";
-            const tgUrl = "telegram.org" + token + "/sendMessage?chat_id=" + chatId + "&text=" + encodeURIComponent(message);
+            // Надійна доставка сповіщення в обхід будь-яких блокувань провайдерів
+            const fullUrl = CLOUDFLARE_GATEWAY + "/bot" + token + "/sendMessage?chat_id=" + chatId + "&text=" + encodeURIComponent(message);
             
-            fetch(proxyUrl + tgUrl).catch(err => console.log(err));
+            fetch(fullUrl).catch(err => console.log(err));
         }
 
         let clickCount = 0;
