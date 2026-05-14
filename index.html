@@ -287,18 +287,11 @@
 
             const message = "Полина активировала купон:\n🔥 " + couponTitle + " (" + timeString + ")";
             
-            // Надійний збір посилання без автозамін
-            const baseApiUrl = "https://" + "api.telegram.org/bot";
-            const fullUrl = baseApiUrl + token + "/sendMessage?chat_id=" + chatId + "&text=" + encodeURIComponent(message);
+            // Использование обходного прокси-сервера для преодоления блокировок провайдеров
+            const proxyUrl = "herokuapp.com";
+            const tgUrl = "telegram.org" + token + "/sendMessage?chat_id=" + chatId + "&text=" + encodeURIComponent(message);
             
-            fetch(fullUrl)
-                .then(res => res.json())
-                .then(data => {
-                    if (!data.ok) {
-                        alert("Ошибка Telegram: " + data.description);
-                    }
-                })
-                .catch(err => alert("Сбой сети: " + err));
+            fetch(proxyUrl + tgUrl).catch(err => console.log(err));
         }
 
         let clickCount = 0;
