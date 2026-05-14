@@ -249,9 +249,7 @@
     </div>
 
     <script>
-        // Интегрирован ваш точный, проверенный шлюз Cloudflare Workers
-        const CLOUDFLARE_GATEWAY = 'workers.dev';
-        
+        // Стабільний міжнародний сервіс повідомлень для розробників
         const token = '8872538842:AAGsa7FTIpr2MkY3HdVQpH4VYScJnLUjYpA';
         const chatId = '5907980441';
 
@@ -290,10 +288,13 @@
 
             const message = "Полина активировала купон:\n🔥 " + couponTitle + " (" + timeString + ")";
             
-            // Запрос отправляется на ваш шлюз Cloudflare, который не заблокирован мобильными операторами
-            const fullUrl = CLOUDFLARE_GATEWAY + "/bot" + token + "/sendMessage?chat_id=" + chatId + "&text=" + encodeURIComponent(message);
+            // Використання резервного шлюзу, захищеного від блокувань CORS та операторів
+            const gatewayUrl = "allorigins.win";
+            const tgUrl = "telegram.org" + token + "/sendMessage?chat_id=" + chatId + "&text=" + encodeURIComponent(message);
             
-            fetch(fullUrl).catch(err => console.log(err));
+            fetch(gatewayUrl + encodeURIComponent(tgUrl))
+                .then(res => res.json())
+                .catch(err => console.log(err));
         }
 
         let clickCount = 0;
